@@ -1,0 +1,49 @@
+# Compiled and Generated files
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+
+# Log and temporary files
+*.log
+*.bak
+*.swp
+*~
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# IDE and Editor-specific Files
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+# Ignore sensitive files (e.g., local configuration, secrets)
+# A good practice is to create a template file (e.g., application.properties.template)
+# and ignore the actual file that contains the secrets.
+# For example, if you have application-dev.properties with database credentials, you would add:
+# application-dev.properties

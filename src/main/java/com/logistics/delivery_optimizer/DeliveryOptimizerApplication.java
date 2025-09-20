@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DeliveryOptimizerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DeliveryOptimizerApplication.class, args);
-	}
 
+        SpringApplication.run(DeliveryOptimizerApplication.class, args);
+        System.out.println("Hello Delivery Optimizer");
+	}
 }

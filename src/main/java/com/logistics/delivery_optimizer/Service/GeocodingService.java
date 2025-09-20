@@ -27,7 +27,7 @@ public class GeocodingService {
 
         JsonNode jsonResponse = responseMono.block();
 
-        if (jsonResponse != null && jsonResponse.isArray() && jsonResponse.size() > 0) {
+        if (jsonResponse != null && jsonResponse.isArray() && !jsonResponse.isEmpty()) {
             JsonNode firstResult = jsonResponse.get(0);
             double lat = firstResult.get("lat").asDouble();
             double lon = firstResult.get("lon").asDouble();

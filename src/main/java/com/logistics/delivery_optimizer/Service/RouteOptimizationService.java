@@ -47,16 +47,26 @@ public class RouteOptimizationService {
                     .append(order.getLatitude());
         }
 
-        Mono<JsonNode> responseMono = webClient.get()
+       /* Mono<JsonNode> responseMono = webClient.get()
                 .uri(uriBuilder -> uriBuilder
                         .pathSegment(coordinatesBuilder.toString())//put the coordinates in the path
                         .queryParam("sources", "0")
                         .queryParam("destinations", String.join(",", getDestinationIndices(pendingOrders)))
                         .build())
                 .retrieve()
+                .bodyToMono(JsonNode.class);*/
+
+        Mono<JsonNode> responseMono = webClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path(coordinatesBuilder.toString())
+                        .queryParam("annotations", "duration,distance")
+                        .build())
+                .retrieve()
                 .bodyToMono(JsonNode.class);
 
         JsonNode response = responseMono.block();
+        System.out.println("OSRM API Response: " + response.toPrettyString());
+
 
         //Greedy algorithm to determine route based on distance matrix
         List<Order> optimizedRoute = new ArrayList<>();
@@ -64,6 +74,8 @@ public class RouteOptimizationService {
             //durations is a field returned by the ORSM API.
             //It contains a matrix of travel times between the source and destinations, which we can set using Indices of the Longitude & Latitude pairs passed in the URL
             JsonNode durationsMatrix = response.get("durations");
+            System.out.println("OSRM API Durations Matrix Response: " + durationsMatrix.toPrettyString());
+            System.out.println("OSRTM API Distance Matrix Response: " + response.get("distances").toPrettyString());
 
             int currentPositionIndex = 0; // Start from the hub, which is at index 0
             List<Order> unvisitedOrders = new ArrayList<>(pendingOrders); // Create a modifiable list of pending orders

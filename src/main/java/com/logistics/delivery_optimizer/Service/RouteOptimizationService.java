@@ -119,4 +119,12 @@ public class RouteOptimizationService {
         }
         return indices;
     }
+
+    //we have this method here, since it is a part of the business logic of route optimization, similar to the method that sets the order status to Assigned
+    public Order updateOrderStatus(Long orderId, Order.Status newStatus) {
+        return orderRepository.findById(orderId).map(order -> {
+            order.setStatus(newStatus);
+            return orderRepository.save(order);
+        }).orElse(null);
+    }
 }

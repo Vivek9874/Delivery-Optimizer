@@ -1,4 +1,3 @@
-A real-time logistics and delivery optimization system built with Spring Boot. This application calculates the most efficient delivery routes for pending orders using a greedy algorithm and the OSRM API, and it provides real-time order status updates via WebSockets.
 
 -----
 

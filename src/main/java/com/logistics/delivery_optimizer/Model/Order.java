@@ -1,5 +1,6 @@
 package com.logistics.delivery_optimizer.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,6 +35,8 @@ public class Order {
     }
 
     @Column(name = "created_at")
+    // Added this annotation to specify the format
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
 
     @PrePersist

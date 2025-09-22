@@ -2,8 +2,6 @@ A real-time logistics and delivery optimization system built with Spring Boot. T
 
 -----
 
-### README.md
-
 # Delivery Optimizer
 
 ## Description

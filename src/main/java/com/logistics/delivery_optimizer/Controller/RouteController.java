@@ -35,9 +35,15 @@ public class RouteController {
     @PatchMapping("/update-status/{orderId}" )
     public ResponseEntity<Order> updateOrderStatus(@PathVariable Long orderId){
         Order updatedOrder = routeOptimizationService.updateOrderStatus(orderId, Order.Status.DELIVERED);
+        System.out.println("Updated Order object: " + updatedOrder);
 
         //check if the order exists and was updated
         if(updatedOrder != null){
+            //bypassing the Order object completely to test the channel.
+            /*String testPayload = "{\"status\": \"SUCCESS\", \"message\": \"This is a test message from the server\"}";
+            System.out.println("Attempting to send test payload to /topic/route-updates");
+            messagingTemplate.convertAndSend("/topic/route-updates", testPayload);*/
+
             messagingTemplate.convertAndSend("/topic/order-updates", updatedOrder);
             return ResponseEntity.ok(updatedOrder);
         }

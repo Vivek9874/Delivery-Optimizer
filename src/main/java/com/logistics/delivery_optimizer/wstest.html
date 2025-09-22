@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket STOMP Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
+</head>
+<body>
+<h1>WebSocket Test Client</h1>
+<button id="connectBtn">Connect</button>
+<button id="disconnectBtn" disabled>Disconnect</button>
+<hr>
+<p>Check the browser's developer console (F12) for logs and received messages.</p>
+
+<script>
+    const connectBtn = document.getElementById('connectBtn');
+    const disconnectBtn = document.getElementById('disconnectBtn');
+    const client = new StompJs.Client({
+        brokerURL: 'ws://localhost:8080/ws',
+        onConnect: () => {
+            console.log('✅ CONNECTED to ws://localhost:8080/ws');
+            connectBtn.disabled = true;
+            disconnectBtn.disabled = false;
+
+            client.subscribe('/topic/order-updates', (message) => {
+                console.log('✅ MESSAGE RECEIVED:', message.body);
+                alert('SUCCESS! Message Received! Check console.');
+            });
+            console.log('✅ SUBSCRIBED to /topic/order-updates');
+        },
+        onStompError: (frame) => {
+            console.error('Broker reported error: ' + frame.headers['message']);
+        }
+    });
+
+    connectBtn.addEventListener('click', () => client.activate());
+    disconnectBtn.addEventListener('click', () => client.deactivate());
+</script>
+</body>
+</html>
